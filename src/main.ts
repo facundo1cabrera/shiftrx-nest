@@ -9,7 +9,9 @@ async function bootstrap() {
     whitelist: true,
     forbidNonWhitelisted: true,
     transform: true
-  }))
+  }));
+
+  app.enableCors({ origin: '*' });
 
   await app.listen(3001);
 }
