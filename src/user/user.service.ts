@@ -21,7 +21,7 @@ export class UserService {
         const newUser = await this.prisma.user.create({
             data: {
                 ...dto,
-                password: await hash(dto.password, 10) 
+                password: await hash(dto.password, 10)
             }
         });
 
@@ -38,4 +38,11 @@ export class UserService {
         })
     }
 
+    async findById(id: number) {
+        return await this.prisma.user.findUnique({
+            where: {
+                id: id
+            }
+        })
+    }
 }
