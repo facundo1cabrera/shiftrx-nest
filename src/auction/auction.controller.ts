@@ -35,4 +35,10 @@ export class AuctionController {
         return await this.auctionService.deleteAuction(id);
     }
 
+    @Get("byUser/:id")
+    @UseGuards(JwtGuard)
+    async getAuctionsByUserId(@Param("id") id: number) {
+        return await this.auctionService.getAuctionByUserId(id);
+    }
+
 }

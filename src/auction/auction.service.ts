@@ -105,4 +105,14 @@ export class AuctionService {
 
         return auction;
     }
+
+    async getAuctionByUserId(id: number) {
+        const auctions = await this.prisma.auction.findMany({
+            where: {
+                userId: id
+            }
+        })
+
+        return auctions;
+    }
 }
