@@ -29,4 +29,26 @@ export class AuctionService {
 
         return newAuction;
     }
+
+
+    async getAuction(id: number) {
+        const auction = await this.prisma.auction.findUnique({
+            where: {
+                id
+            },
+            include: {
+                bids: true
+            }
+        })
+
+        if (!auction) throw new NotFoundException();
+
+        return auction;
+    }
+
+    async getAllAuctions() {
+        const auctions = await this.prisma.auction.findMany();
+
+        return auctions;
+    }
 }
