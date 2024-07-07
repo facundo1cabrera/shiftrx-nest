@@ -20,3 +20,15 @@ export class CreateAuctionDto {
     @IsDateString()
     endTime: string
 }
+
+
+export class UpdateAuctionDto {
+    @IsString()
+    image: string;
+
+    @IsString()
+    title: string;
+
+    @IsString()
+    description: string;
+}

@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AuctionService } from './auction.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
-import { CreateAuctionDto } from './dto/auction.dto';
+import { CreateAuctionDto, UpdateAuctionDto } from './dto/auction.dto';
 
 @Controller('auction')
 export class AuctionController {
@@ -22,5 +22,11 @@ export class AuctionController {
     async getAllAuctions() {
         return await this.auctionService.getAllAuctions();
     }
-    
+
+    @Put(":id")
+    @UseGuards(JwtGuard)
+    async updateAuction(@Param("id") id: number, @Body() dto: UpdateAuctionDto) {
+        return await this.auctionService.updateAuction(id, dto);
+    }
+
 }
