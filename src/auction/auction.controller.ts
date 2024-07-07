@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AuctionService } from './auction.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { CreateAuctionDto, UpdateAuctionDto } from './dto/auction.dto';
@@ -27,6 +27,12 @@ export class AuctionController {
     @UseGuards(JwtGuard)
     async updateAuction(@Param("id") id: number, @Body() dto: UpdateAuctionDto) {
         return await this.auctionService.updateAuction(id, dto);
+    }
+
+    @Delete(":id")
+    @UseGuards(JwtGuard)
+    async deleteAuction(@Param("id") id: number) {
+        return await this.auctionService.deleteAuction(id);
     }
 
 }

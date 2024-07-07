@@ -77,4 +77,20 @@ export class AuctionService {
 
         return updatedAuction;
     }
+
+    async deleteAuction(id: number) {
+        const auctionDb = await this.prisma.auction.findUnique({
+            where: {
+                id
+            }
+        });
+        
+        if (!auctionDb) throw new NotFoundException();
+
+        await this.prisma.auction.delete({
+            where: {
+                id
+            }
+        });
+    }
 }
