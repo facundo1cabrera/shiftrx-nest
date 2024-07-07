@@ -1,11 +1,12 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateBidDto } from './dto/bid.dto';
 import { UserService } from 'src/user/user.service';
+import { AuctionService } from 'src/auction/auction.service';
 
 @Injectable()
 export class BidService {
-    constructor(private prisma: PrismaService, private userService: UserService) {
+    constructor(private prisma: PrismaService, private userService: UserService, private auctionService: AuctionService) {
 
     }
 
@@ -25,5 +26,19 @@ export class BidService {
         });
 
         return newBid;
+    }
+
+    async getAllByAuctionId(id: number) {
+        const auction = await this.auctionService.getAuctionById(id);
+
+        if (!auction) throw new NotFoundException();
+
+        const bids = await this.prisma.bid.findMany({
+            where: {
+                auctionId: id
+            }
+        });
+
+        return bids;
     }
 }

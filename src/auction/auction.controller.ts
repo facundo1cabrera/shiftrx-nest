@@ -15,7 +15,7 @@ export class AuctionController {
 
     @Get(":id")
     async getAuction(@Param("id") id: number) {
-        return await this.auctionService.getAuction(id);
+        return await this.auctionService.getAuctionDetail(id);
     }
 
     @Get("")

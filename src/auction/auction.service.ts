@@ -31,7 +31,7 @@ export class AuctionService {
     }
 
 
-    async getAuction(id: number) {
+    async getAuctionDetail(id: number) {
         const auction = await this.prisma.auction.findUnique({
             where: {
                 id
@@ -92,5 +92,17 @@ export class AuctionService {
                 id
             }
         });
+    }
+
+    async getAuctionById(id: number) {
+        const auction = await this.prisma.auction.findUnique({
+            where: {
+                id
+            }
+        })
+
+        if (!auction) throw new NotFoundException();
+
+        return auction;
     }
 }
