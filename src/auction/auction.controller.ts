@@ -10,6 +10,7 @@ export class AuctionController {
     @UseGuards(JwtGuard)
     @Post("")
     async createAuction(@Body() dto: CreateAuctionDto) {
+        console.log("received request")
         return await this.auctionService.createAuction(dto);
     }
 
