@@ -3,7 +3,7 @@ This is the backend for the auction application, developed using Node.js with Ty
 
 ## instalation
 
-This backend service is currently live in monkfish-app-xs5n3.ondigitalocean.app, but here is the instalation guide if you want to run it locally:
+This backend service is currently live [here](https://shiftrx-nest-production-10c1.up.railway.app/health-check), but here is the instalation guide if you want to run it locally:
 
 1) clone the repository
 ```
