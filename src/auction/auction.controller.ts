@@ -21,6 +21,7 @@ export class AuctionController {
 
     @Get("")
     async getAllAuctions() {
+        console.log("getAllAuctions endpoint")
         return await this.auctionService.getAllAuctions();
     }
 
