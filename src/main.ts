@@ -11,7 +11,7 @@ async function bootstrap() {
     transform: true
   }));
 
-  app.enableCors({ origin: '*' });
+  app.enableCors({ origin: '*', allowedHeaders: '*', methods: '*' });
 
   await app.listen(3001);
 }
