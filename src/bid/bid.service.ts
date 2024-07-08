@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from '../prisma.service';
 import { CreateBidDto } from './dto/bid.dto';
-import { UserService } from 'src/user/user.service';
-import { AuctionService } from 'src/auction/auction.service';
+import { UserService } from '../user/user.service';
+import { AuctionService } from '../auction/auction.service';
 
 @Injectable()
 export class BidService {
