@@ -15,7 +15,11 @@ export class BidService {
         
         if (!user) throw new BadRequestException();
 
-        const newBid = await this.prisma.bid.create({
+        // The current price is updated on every write, because the tradeoff would be to make a join query on each getAuction endpoint call
+        // And the system is going to have a lot more reads than writes
+        const updatedAuctionPromise = this.auctionService.updateCurrentPrice(dto.auctionId, dto.price);
+
+        const newBidPromise = this.prisma.bid.create({
             data: {
                 userId: dto.userId,
                 bidderName: user.name,
@@ -24,6 +28,8 @@ export class BidService {
                 auctionId: dto.auctionId
             }
         });
+
+        const [newBid, updatedAuction] = await Promise.all([newBidPromise, updatedAuctionPromise]);
 
         return newBid;
     }

@@ -115,4 +115,27 @@ export class AuctionService {
 
         return auctions;
     }
+
+    async updateCurrentPrice(auctionId: number, newPrice: number) {
+        const auction = await this.prisma.auction.findUnique({
+            where: {
+                id: auctionId
+            }
+        });
+
+        if (!auction) throw new NotFoundException();
+
+        auction.currentPrice = newPrice;
+
+        const updatedAuction = await this.prisma.auction.update({
+            where: {
+                id: auctionId
+            },
+            data: {
+                ...auction
+            }
+        })
+
+        return updatedAuction;
+    }
 }
