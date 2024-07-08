@@ -11,11 +11,12 @@ This backend service is currently live in monkfish-app-xs5n3.ondigitalocean.app,
   cd shiftrx-nest
 ```
 
-2) rename the .env.example file and add a random string to variables: JWT_SECRET_KEY and JWT_REFRESH_KEY
-
-3) Run the following command to set up the database with docker
+2) rename the .env.example file to .env and:
+    - add a random string to variables: JWT_SECRET_KEY and JWT_REFRESH_KEY
+    -  
+4) Run the following command to set up the database with docker
 ```
-docker compose -f docker-compose.database.yml up
+docker compose -f docker-compose.database.yml up -d
 ```
 
 4) Run the following command to apply migrations
@@ -23,17 +24,21 @@ docker compose -f docker-compose.database.yml up
 npx prisma migrate deploy
 ```
 
-5) Stop the database container
+5) Replace the env variable DATABASE_URL in the .env file to:
+```
+DATABASE_URL="postgresql://postgres:asdfhasdfkjhasdfqwye8rudsaifnzxvnwrglkz@postgres:5432/shiftdb?schema=public"
+```
+6) Stop the database container
 ```
 docker compose down
 ```
 
-6) run the docker-compose file
+7) run the docker-compose file
 ```
 docker compose up -d
 ```
 
-7) Query all the endpoints with the Frontend or either with the postman collection.
+8) Query all the endpoints with the Frontend or either with the postman collection.
 
 
 ## Run tests
