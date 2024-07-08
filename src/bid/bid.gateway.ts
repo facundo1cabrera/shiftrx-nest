@@ -21,7 +21,6 @@ export class BidGateway implements OnModuleInit {
     })
   }
 
-  @UseGuards(JwtGuard)
   @SubscribeMessage('on-bid-placed')
   handleOnBidPlaced(@MessageBody() bid: any) {
     this.server.emit('on-bid-placed', bid);
