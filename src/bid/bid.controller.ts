@@ -19,4 +19,8 @@ export class BidController {
         return await this.bidService.getAllByAuctionId(id);
     }
 
+    @Get("byUser/:id")
+    async getBidsByUserId(@Param("id") id: number) {
+        return await this.bidService.getAllByUserId(id);
+    }
 }

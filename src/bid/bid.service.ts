@@ -12,7 +12,7 @@ export class BidService {
 
     async create(dto: CreateBidDto) {
         const user = await this.userService.findById(dto.userId);
-        
+
         if (!user) throw new BadRequestException();
 
         // The current price is updated on every write, because the tradeoff would be to make a join query on each getAuction endpoint call
@@ -46,5 +46,30 @@ export class BidService {
         });
 
         return bids;
+    }
+
+    async getAllByUserId(id) {
+        const user = await this.userService.findById(id);
+
+        if (!user) throw new BadRequestException();
+    
+        const bids = await this.prisma.bid.findMany({
+            where: {
+                userId: id
+            },
+            include: {
+                auction: true
+            }
+        });
+
+        return bids.map(x => ({
+            id: x.id,
+            auctionId: x.auctionId,
+            bidderName: x.bidderName,
+            price: x.price,
+            time: x.time,
+            userId: x.userId,
+            title: x.auction.title
+        }));
     }
 }
