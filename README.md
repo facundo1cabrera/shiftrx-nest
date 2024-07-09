@@ -51,3 +51,6 @@ cd shiftrx-nest
 npm install
 npm run test
 ```
+
+## Technical tradeoffs:
+- I decided to break normalization in the Auction model by saving the currentPrice property directly, rather than obtaining its value with a join statement on each read. This decision was made to allow the create bid endpoint to update the currentPrice of the auction on each call, shifting the complexity to the writes (which I assume will be much fewer than the reads) instead of the reads.
